@@ -22,7 +22,7 @@ public class Ungdung extends JFrame {
 
     Connection conn;
 
-    int id = 0; // ID sẽ lấy từ database
+    int id = 0; 
 
     public Ungdung() {
         setTitle("Quản lý chi tiêu cá nhân");
@@ -31,12 +31,12 @@ public class Ungdung extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        connectDB();      // Kết nối MySQL
-        initComponents(); // Tạo GUI
-        loadDataFromDB(); // Load dữ liệu từ database
+        connectDB();      
+        initComponents(); 
+        loadDataFromDB();
     }
 
-    // ======== KẾT NỐI DATABASE =========
+    
     void connectDB() {
         try {
             conn = DriverManager.getConnection(
@@ -50,9 +50,9 @@ public class Ungdung extends JFrame {
         }
     }
 
-    // ======== TẠO GIAO DIỆN =========
+    
     void initComponents() {
-        // ======== MENU BAR =========
+        
         JMenuBar menubar = new JMenuBar();
         JMenu menuFile = new JMenu("Tệp");
         JMenuItem mThoat = new JMenuItem("Thoát");
@@ -69,7 +69,7 @@ public class Ungdung extends JFrame {
         menubar.add(menuTroGiup);
         setJMenuBar(menubar);
 
-        // ======== PANEL NHẬP DỮ LIỆU =========
+       
         JPanel pNhap = new JPanel(new GridLayout(2, 5, 5, 5));
         pNhap.setBorder(BorderFactory.createTitledBorder("Nhập chi tiêu"));
 
@@ -91,7 +91,7 @@ public class Ungdung extends JFrame {
         pNhap.add(tfNgay);
         pNhap.add(tfGhichu);
 
-        // ======== PANEL CHỨC NĂNG =========
+        
         JPanel pChucNang = new JPanel(new GridLayout(5, 1, 5, 5));
         pChucNang.setBorder(BorderFactory.createTitledBorder("Chức năng"));
 
@@ -105,7 +105,7 @@ public class Ungdung extends JFrame {
         pChucNang.add(btnXoa);
         pChucNang.add(btnClear);
 
-        // ======== PANEL TÌM KIẾM =========
+        
         JPanel pSearch = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pSearch.setBorder(BorderFactory.createTitledBorder("Tìm kiếm & Lọc"));
 
@@ -117,18 +117,18 @@ public class Ungdung extends JFrame {
         pSearch.add(new JLabel("Lọc loại: "));
         pSearch.add(cbBoloc);
 
-        // ======== TABLE HIỂN THỊ =========
+        
         String[] col = {"ID", "Số tiền", "Loại", "Danh mục", "Ngày", "Ghi chú"};
         model = new DefaultTableModel(col, 0);
         table = new JTable(model);
 
-        // Tạo sorter cho table
+        
         sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);
 
         JScrollPane sp = new JScrollPane(table);
 
-        // ======== PANEL THỐNG KÊ =========
+        
         JPanel pThongKe = new JPanel(new GridLayout(1, 3));
         pThongKe.setBorder(BorderFactory.createTitledBorder("Thống kê"));
 
@@ -140,7 +140,7 @@ public class Ungdung extends JFrame {
         pThongKe.add(lbTongChi);
         pThongKe.add(lbSoDu);
 
-        // ======== GHÉP VÀO FRAME =========
+        
         add(pNhap, BorderLayout.NORTH);
         add(pChucNang, BorderLayout.WEST);
 
@@ -151,13 +151,13 @@ public class Ungdung extends JFrame {
         add(centerPanel, BorderLayout.CENTER);
         add(pThongKe, BorderLayout.SOUTH);
 
-        // ======== SỰ KIỆN NÚT =========
+        
         btnThem.addActionListener(e -> addRow());
         btnXoa.addActionListener(e -> deleteRow());
         btnClear.addActionListener(e -> clearAllData());
         btnSua.addActionListener(e -> editRow());
 
-        // ======== SỰ KIỆN TÌM KIẾM =========
+        
         tfTimkiem.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) { applySearchAndFilter(); }
         });
@@ -166,7 +166,7 @@ public class Ungdung extends JFrame {
         setVisible(true);
     }
 
-    // ======== CÁC HÀM CHỨC NĂNG =========
+    
     String dinhDangTien(String s) {
         try {
             long so = Long.parseLong(s);
@@ -333,7 +333,7 @@ public class Ungdung extends JFrame {
                 model.addRow(row);
                 id = Math.max(id, rowId);
             }
-            id++; // id tiếp theo
+            id++; 
             updateStats();
         } catch (SQLException ex) {
             ex.printStackTrace();
